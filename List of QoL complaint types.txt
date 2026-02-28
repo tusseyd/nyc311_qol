@@ -1,0 +1,113 @@
+The Amelioration Index: Preventable QoL Issues
+
+
+ High-visibility interior issues where the city can force compliance through fines, litigation, or emergency repair programs.
+
+    HEAT/HOT WATER (1,071,134)
+
+    PLUMBING (262,373)
+
+    PAINT/PLASTER (232,555)
+
+    DOOR/WINDOW (174,403)
+
+    WATER LEAK (160,989)
+
+    GENERAL CONSTRUCTION/PLUMBING (148,533)
+
+    ELECTRIC (111,471)
+
+    FLOORING/STAIRS (101,643)
+
+    APPLIANCE (83,837)
+
+    ELEVATOR (82,065)
+
+    BUILDING/USE (77,947)
+
+    LEAD (63,187)
+
+    INDOOR AIR QUALITY (29,752)
+
+    BOILERS (13,527)
+
+    ELECTRICAL (8,892)
+
+Sanitation & Streetscape (DSNY & DOHMH)
+Issues the city can directly reduce via better routing, increased pickup frequencies, containerization policies, and the "Rat Czar."
+
+    UNSANITARY CONDITION (443,177)
+
+    DIRTY CONDITION (210,309)
+
+    MISSED COLLECTION (187,275)
+
+    RODENT (150,950)
+
+    ILLEGAL DUMPING (141,580)
+
+    GRAFFITI (71,424)
+
+    RESIDENTIAL DISPOSAL COMPLAINT (49,424)
+
+    REQUEST LARGE BULKY ITEM COLLECTION (46,727)
+
+    STREET SWEEPING COMPLAINT (32,663)
+
+    OUTDOOR DINING (21,587) Major policy shift this term
+
+    LITTER BASKET REQUEST (14,513)
+
+    SANITATION WORKER OR VEHICLE COMPLAINT (12,201)
+
+    COMMERCIAL DISPOSAL COMPLAINT (10,512)
+
+    DUMPSTER COMPLAINT (7,318)
+
+Infrastructure Reliability (DOT, DEP & Parks)
+Physical breakdowns the city has dedicated capital and expense budgets to maintain, pave, and prune.
+
+    STREET CONDITION (275,856)
+
+    WATER SYSTEM (256,583)
+
+    TRAFFIC SIGNAL CONDITION (171,717)
+
+    STREET LIGHT CONDITION (150,819)
+
+    SEWER (107,697)
+
+    SIDEWALK CONDITION (95,928)
+
+    NEW TREE REQUEST (63,107) Proactive forestry
+
+    OVERGROWN TREE/BRANCHES (62,950) City pruning schedules
+
+    ROOT/SEWER/SIDEWALK CONDITION (32,124)
+
+    SNOW OR ICE (27,977)
+
+    CURB CONDITION (27,717)
+
+    STREET SIGN - DAMAGED (19,772)
+
+    HIGHWAY CONDITION (14,529)
+
+    BROKEN PARKING METER (14,472)
+
+    STREET SIGN - MISSING (14,454)
+
+    STREET SIGN - DANGLING (14,166)
+
+Social Services Outreach (DHS/DSS)
+Direct reflections of street homelessness that the city attempts to manage via outreach teams and shelter policies.
+
+    ENCAMPMENT (168,092)
+
+    HOMELESS PERSON ASSISTANCE (98,290)
+
+The Analytical Advantage of this List
+
+If you chart the indexed, smoothed trendline of this specific group of complaints over the 48-month period, you are no longer just showing a chart of "complaints." You are showing a direct visualization of Municipal Efficacy. If the trendline for these specific codes goes up, the city is falling behind on the things it actually controls.
+
+Would you like me to format this final, filtered list into a character vector so you can easily drop it into your R script, or perhaps draft a formatted table using LaTeX if you are building an accompanying document for your presentation?

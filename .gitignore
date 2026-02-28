@@ -1,0 +1,20 @@
+# Large raw data files - do not commit to GitHub
+data/raw/
+data/processed/
+
+# Intermediate RDS files - reproducible from scripts
+output/data/
+
+# R environment and history
+.Rhistory
+.RData
+.Rproj.user/
+*.Rproj
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Rendered outputs (optional - remove these lines if you want plots tracked)
+output/plots/
+output/tables/
