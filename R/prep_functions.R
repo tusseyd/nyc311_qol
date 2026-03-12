@@ -1,19 +1,38 @@
 # =============================================================================
 # R/prep_functions.R
 # NYC 311 Quality of Life Index
-# Data preparation helper functions
-# Adapted from nyc_311_data_quality project functions
+#
+# PURPOSE: Data preparation helper functions sourced by 01_data_prep.R.
+# Provides standardized routines for column name cleanup, missing value
+# normalization, date parsing, and output verification.
+#
+# FUNCTIONS:
+#
+#   modify_column_names(dataset)
+#     Standardizes raw NYC Open Data column names: spaces -> underscores,
+#     parentheses removed, converted to lowercase.
+#     Example: "Problem (formerly Complaint Type)" ->
+#              "problem_formerly_complaint_type"
+#
+#   standardize_missing_chars(DT, tokens, report_zeroes)
+#     Converts blank strings and common missing-value tokens ("na", "null",
+#     "n/a", "<na>") to NA. Trims whitespace from remaining character values.
+#     Operates in-place on a data.table (by reference). Prints a per-column
+#     summary of all values normalized.
+#
+#   parse_date_column(temp_raw_data, valid_date_columns, fmt, local_tz)
+#     Converts character date columns to POSIXct (America/New_York).
+#     Handles DST spring-forward failures by detecting unparseable timestamps
+#     and shifting them forward by +1 hour rather than dropping as NA.
+#     Returns list: parsed_data, failures.
+#
+#   save_and_verify(dt, path, write_csv)
+#     Saves a data.table as an RDS file, reads it back immediately, and
+#     verifies row and column counts match. Reports file size in MB.
+#     Raises a warning if any mismatch is detected.
+#
+# NOTE: Adapted from the nyc_311_data_quality project function library.
 # =============================================================================
-
-# -----------------------------------------------------------------------------
-# modify_column_names()
-# Standardizes raw NYC Open Data column names:
-#   - Spaces replaced with underscores
-#   - Parentheses removed
-#   - Converted to lowercase
-# After this runs, "Problem (formerly Complaint Type)" becomes
-# "problem_formerly_complaint_type", etc.
-# -----------------------------------------------------------------------------
 modify_column_names <- function(dataset) {
   if (!is.data.frame(dataset))
     stop("modify_column_names: input must be a data.frame or data.table.")
@@ -149,9 +168,8 @@ parse_date_column <- function(temp_raw_data,
     temp_raw_data[, (posix_col) := parsed]
   }
 
-  # --- 2. Replace original columns with parsed versions ---  (renumber from 3 to 2)
-  for (col in valid_date_columns) {
-    posix_col <- paste0(col, "_posix")
+  # --- 2. Replace original columns with parsed versions ---
+  for (col in valid_date_columns) {    posix_col <- paste0(col, "_posix")
     if (posix_col %in% names(temp_raw_data)) {
       temp_raw_data[[col]] <- temp_raw_data[[posix_col]]
       temp_raw_data[, (posix_col) := NULL]
@@ -160,21 +178,6 @@ parse_date_column <- function(temp_raw_data,
   
   invisible(list(
     parsed_data = temp_raw_data,
-    failures    = if (length(parse_failures)) rbindlist(parse_failures, fill = TRUE) else NULL
-  ))
-
-  # --- 3. Replace original columns with parsed versions ---
-  for (col in valid_date_columns) {
-    posix_col <- paste0(col, "_posix")
-    if (posix_col %in% names(temp_raw_data)) {
-      temp_raw_data[[col]] <- temp_raw_data[[posix_col]]
-      temp_raw_data[, (posix_col) := NULL]
-    }
-  }
-
-  invisible(list(
-    parsed_data = temp_raw_data,
-    summary     = rbindlist(time_summary, fill = TRUE),
     failures    = if (length(parse_failures)) rbindlist(parse_failures, fill = TRUE) else NULL
   ))
 }

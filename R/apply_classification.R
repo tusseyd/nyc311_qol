@@ -2,16 +2,42 @@
 # apply_classification.R
 # NYC 311 Quality of Life Index
 #
-# PURPOSE: Reads complaint_classification.xlsx and applies:
-#   1. Maps complaint_type -> family (consolidation)
-#   2. Maps family -> bundle
-#   3. Filters to include_in_analysis == "Y" families only
+# PURPOSE: Single-function file that maps raw 311 complaint types to their
+# analytical family and bundle, then filters the dataset to only those
+# families designated for inclusion in the QoL Index.
 #
-# Sourced by 01_data_prep.R. Expects a data.table `dt` with a column
-# named "complaint_type" (uppercased).
+# Called by 01_data_prep.R once per raw CSV file (baseline and monitor).
 #
-# Returns: dt with two new columns (family, bundle), filtered to
-#          included families only.
+# FUNCTION: apply_classification(dt, ref_path, hier_path, verbose = TRUE)
+#
+# ARGUMENTS:
+#   dt        — data.table with a column named "complaint_type" (uppercased)
+#   ref_path  — path to complaint_classification.xlsx (output of 00_)
+#   hier_path — path to complaint_hierarchy.csv (data/reference/)
+#   verbose   — if TRUE, prints row counts and filter summary to console
+#
+# PROCESSING:
+#   1. Loads complaint_hierarchy.csv: complaint_type -> family -> bundle
+#   2. Loads complaint_classification.xlsx (Classification sheet):
+#      reads include_in_analysis column to get the list of included families
+#   3. Merges hierarchy onto dt: assigns family and bundle to every row.
+#      Complaint types not present in the hierarchy receive NA family.
+#   4. Filters dt to included families only (include_in_analysis == "Y").
+#      Rows with NA family (types not in hierarchy) are also excluded.
+#
+# RETURNS:
+#   The input data.table filtered to QoL-included families, with two
+#   new columns added:
+#     family — complaint family name (uppercase)
+#     bundle — bundle key (lowercase, matches config.R BUNDLES)
+#
+# DEPENDENCIES:
+#   data.table, openxlsx
+#   00_build_classification_master.R must have been run to produce ref_path
+#
+# NOTE: This function executes inclusion decisions — it does not make them.
+#   To change which families are included, edit include_in_analysis flags
+#   in complaint_classification.xlsx. No code changes needed.
 # =============================================================================
 
 apply_classification <- function(dt, ref_path, hier_path, verbose = TRUE) {
